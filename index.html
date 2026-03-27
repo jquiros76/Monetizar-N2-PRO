@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monetiza en Internet · Nivel 2 — Sistema Pro</title>
+<style>
+:root {
+  --bg:         #0a0a0d;
+  --s1:         #111116;
+  --s2:         #18181f;
+  --s3:         #1f1f28;
+  --brd:        #252532;
+  --brd2:       #32324a;
+  --accent:     #f0a500;
+  --accent-d:   #c07800;
+  --accent-lt:  rgba(240,165,0,.11);
+  --accent-glow:rgba(240,165,0,.22);
+  --blue:       #3b82f6;
+  --blue-lt:    rgba(59,130,246,.1);
+  --txt:        #eeeef5;
+  --txt2:       #7878a0;
+  --txt3:       #3a3a55;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Helvetica Neue', Arial, sans-serif;
+  --mono: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+  --r: 10px; --r-lg: 18px; --r-xl: 24px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background-color: var(--bg); color: var(--txt); min-height: 100vh; line-height: 1.6; overflow-x: hidden; }
+.bg-atmosphere { position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(ellipse 70% 50% at 20% 15%, rgba(240,165,0,.06) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 80% 85%, rgba(59,130,246,.04) 0%, transparent 55%); }
+.page-wrap { position: relative; z-index: 1; max-width: 820px; margin: 0 auto; padding: 0 20px 100px; }
+
+/* NAVBAR */
+.navbar { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(–brd); margin-bottom: 60px; }
+.navbar-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.navbar-logo { width: 32px; height: 32px; background: var(–accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; box-shadow: 0 0 14px var(–accent-glow); }
+.navbar-name { font-size: 14px; font-weight: 700; color: var(–txt); letter-spacing: -.2px; }
+.navbar-pill { display: flex; align-items: center; gap: 6px; background: var(–accent-lt); border: 1px solid rgba(240,165,0,.25); color: var(–accent); font-size: 11px; font-weight: 700; font-family: var(–mono); letter-spacing: 1px; text-transform: uppercase; padding: 5px 12px; border-radius: 99px; }
+.navbar-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(–accent); box-shadow: 0 0 8px var(–accent); animation: blink-dot 2s ease-in-out infinite; }
+@keyframes blink-dot { 0%,100%{opacity:1;box-shadow:0 0 6px var(–accent);} 50%{opacity:.5;box-shadow:0 0 12px var(–accent);} }
+
+/* HERO */
+.hero-section { padding: 10px 0 64px; }
+.hero-kicker { display: inline-flex; align-items: center; gap: 8px; font-family: var(–mono); font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(–accent); margin-bottom: 24px; }
+.hero-kicker-line { width: 28px; height: 1px; background: var(–accent); opacity: .6; }
+.hero-headline { font-size: clamp(2.4rem, 6vw, 3.8rem); font-weight: 800; line-height: 1.07; letter-spacing: -1.5px; color: var(–txt); margin-bottom: 22px; }
+.hero-headline-em { color: var(–accent); }
+.hero-body { font-size: 17px; color: var(–txt2); max-width: 560px; line-height: 1.75; margin-bottom: 36px; }
+.hero-meta-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+.hero-meta-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: var(–txt2); font-weight: 500; }
+.hero-meta-icon { font-size: 15px; }
+.hero-cta-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(–accent); color: #0a0a0d; font-family: var(–sans); font-size: 15px; font-weight: 700; border: none; border-radius: var(–r-lg); cursor: pointer; box-shadow: 0 5px 0 var(–accent-d), 0 8px 24px var(–accent-glow); transition: filter .15s, transform .12s, box-shadow .12s; text-decoration: none; letter-spacing: -.1px; position: relative; overflow: hidden; }
+.btn-primary::after { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 45%; background: rgba(255,255,255,.12); border-radius: var(–r-lg) var(–r-lg) 60% 60%; }
+.btn-primary:hover  { filter: brightness(1.1); transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(3px); box-shadow: 0 2px 0 var(–accent-d); }
+
+/* PROGRESS TRACKER */
+.progress-track-section { margin-bottom: 60px; }
+.section-label { font-family: var(–mono); font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(–txt3); margin-bottom: 20px; }
+.progress-steps { display: flex; gap: 0; position: relative; }
+.progress-steps::before { content: ‘’; position: absolute; top: 18px; left: 18px; right: 18px; height: 1px; background: var(–brd2); z-index: 0; }
+.progress-step { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; position: relative; z-index: 1; cursor: pointer; }
+.step-circle { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(–mono); font-size: 12px; font-weight: 700; border: 1px solid var(–brd2); background: var(–s2); color: var(–txt3); transition: all .3s ease; }
+.step-circle.step-active { background: var(–accent); border-color: var(–accent); color: #0a0a0d; box-shadow: 0 0 18px var(–accent-glow); }
+.step-circle.step-done   { background: var(–accent-lt); border-color: rgba(240,165,0,.4); color: var(–accent); }
+.step-label { font-size: 11px; font-weight: 600; color: var(–txt3); text-align: center; line-height: 1.3; max-width: 80px; transition: color .3s; }
+.step-label.step-label-active { color: var(–accent); }
+.step-label.step-label-done   { color: var(–txt2); }
+
+/* LECCIÓN */
+.lesson-section { display: none; }
+.lesson-section.lesson-active { display: block; animation: lesson-in .35s cubic-bezier(.2,.8,.3,1) both; }
+@keyframes lesson-in { from{opacity:0;transform:translateY(14px);} to{opacity:1;transform:translateY(0);} }
+.lesson-header { display: flex; align-items: flex-start; gap: 18px; background: var(–s1); border: 1px solid var(–brd); border-radius: var(–r-xl); padding: 28px 28px 24px; margin-bottom: 22px; position: relative; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.04); }
+.lesson-header::before { content: ‘’; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(–accent); box-shadow: 2px 0 14px var(–accent-glow); }
+.lesson-header::after { content: ‘’; position: absolute; top: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(240,165,0,.06) 0%, transparent 70%); pointer-events: none; }
+.lesson-icon { width: 52px; height: 52px; border-radius: var(–r-lg); background: var(–accent-lt); border: 1px solid rgba(240,165,0,.25); display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+.lesson-header-text { flex: 1; position: relative; z-index: 1; }
+.lesson-num { font-family: var(–mono); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(–accent); margin-bottom: 6px; }
+.lesson-title { font-size: 1.65rem; font-weight: 800; letter-spacing: -.4px; color: var(–txt); line-height: 1.2; margin-bottom: 8px; }
+.lesson-subtitle { font-size: 14px; color: var(–txt2); line-height: 1.6; }
+.lesson-duration { display: flex; align-items: center; gap: 6px; font-family: var(–mono); font-size: 11px; color: var(–txt3); flex-shrink: 0; }
+.lesson-body { display: flex; flex-direction: column; gap: 18px; margin-bottom: 28px; }
+
+/* BLOQUES */
+.content-block { background: var(–s1); border: 1px solid var(–brd); border-radius: var(–r-lg); padding: 26px 26px 22px; box-shadow: 0 2px 10px rgba(0,0,0,.2); }
+.content-block-title { font-size: 15px; font-weight: 700; color: var(–txt); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.content-block-title-icon { font-size: 17px; }
+.content-block-text { font-size: 14px; color: var(–txt2); line-height: 1.8; }
+.content-block-text strong { color: var(–txt); font-weight: 600; }
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.check-list-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(–txt2); line-height: 1.55; }
+.check-list-bullet { width: 20px; height: 20px; border-radius: 50%; background: var(–accent-lt); border: 1px solid rgba(240,165,0,.3); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(–accent); flex-shrink: 0; margin-top: 1px; }
+.check-list-text strong { color: var(–txt); font-weight: 600; }
+.insight-block { background: var(–accent-lt); border: 1px solid rgba(240,165,0,.25); border-radius: var(–r-lg); padding: 22px 24px; display: flex; gap: 16px; align-items: flex-start; }
+.insight-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+.insight-text { font-size: 14px; color: var(–txt2); line-height: 1.75; font-style: italic; }
+.insight-text strong { color: var(–accent); font-style: normal; font-weight: 700; }
+.warning-block { background: rgba(59,130,246,.07); border: 1px solid rgba(59,130,246,.2); border-radius: var(–r-lg); padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start; }
+.warning-icon { font-size: 20px; flex-shrink: 0; }
+.warning-text { font-size: 13px; color: var(–txt2); line-height: 1.7; }
+.warning-text strong { color: var(–blue); font-weight: 700; }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.compare-col { background: var(–s2); border: 1px solid var(–brd); border-radius: var(–r); padding: 16px; }
+.compare-col-bad  { border-top: 2px solid rgba(244,63,94,.5); }
+.compare-col-good { border-top: 2px solid var(–accent); }
+.compare-col-title { font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; font-family: var(–mono); margin-bottom: 10px; }
+.compare-col-bad  .compare-col-title { color: #f43f5e; }
+.compare-col-good .compare-col-title { color: var(–accent); }
+.compare-item { font-size: 12px; color: var(–txt2); padding: 5px 0; border-bottom: 1px solid var(–brd); line-height: 1.4; }
+.compare-item:last-child { border-bottom: none; }
+.exercise-block { background: var(–s2); border: 1px solid var(–brd2); border-radius: var(–r-lg); padding: 24px 24px 20px; box-shadow: 0 2px 10px rgba(0,0,0,.2); }
+.exercise-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.exercise-badge { font-family: var(–mono); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 5px; background: var(–accent-lt); color: var(–accent); border: 1px solid rgba(240,165,0,.25); }
+.exercise-title { font-size: 15px; font-weight: 700; color: var(–txt); }
+.exercise-instruction { font-size: 14px; color: var(–txt2); line-height: 1.75; margin-bottom: 16px; }
+.exercise-steps { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.exercise-step { display: flex; align-items: flex-start; gap: 12px; font-size: 13px; color: var(–txt2); line-height: 1.55; }
+.exercise-step-num { width: 24px; height: 24px; border-radius: 6px; background: var(–s3); border: 1px solid var(–brd2); display: flex; align-items: center; justify-content: center; font-family: var(–mono); font-size: 11px; font-weight: 700; color: var(–accent); flex-shrink: 0; }
+.exercise-step-text strong { color: var(–txt); font-weight: 600; }
+
+/* Bloque de código/plantilla */
+.code-block { background: #07070a; border: 1px solid var(–brd2); border-radius: var(–r-lg); overflow: hidden; margin-top: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.35); }
+.code-block-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: var(–s2); border-bottom: 1px solid var(–brd); }
+.code-block-label { font-family: var(–mono); font-size: 11px; color: var(–txt3); }
+.code-block-tag { font-family: var(–mono); font-size: 10px; color: var(–accent); background: var(–accent-lt); border: 1px solid rgba(240,165,0,.2); padding: 3px 8px; border-radius: 4px; }
+.code-block-body { padding: 18px 18px; font-family: var(–mono); font-size: 13px; color: var(–txt2); line-height: 1.9; }
+.code-highlight { color: var(–accent); font-weight: 600; }
+
+/* NAVEGACIÓN */
+.lesson-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
+.btn-lesson-nav { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: var(–r-lg); border: 1.5px solid var(–brd2); background: transparent; color: var(–txt2); font-family: var(–sans); font-size: 14px; font-weight: 600; cursor: pointer; transition: border-color .15s, color .15s, background .15s; }
+.btn-lesson-nav:hover { border-color: var(–brd2); color: var(–txt); background: var(–s2); }
+.btn-lesson-nav:disabled { opacity: .3; cursor: default; }
+.btn-lesson-next { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: var(–r-lg); border: none; background: var(–accent); color: #0a0a0d; font-family: var(–sans); font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 0 var(–accent-d), 0 6px 18px var(–accent-glow); transition: filter .15s, transform .12s, box-shadow .12s; position: relative; overflow: hidden; }
+.btn-lesson-next::after { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 45%; background: rgba(255,255,255,.1); border-radius: var(–r-lg) var(–r-lg) 60% 60%; }
+.btn-lesson-next:hover  { filter: brightness(1.1); transform: translateY(-1px); }
+.btn-lesson-next:active { transform: translateY(2px); box-shadow: 0 1px 0 var(–accent-d); }
+.lesson-progress-text { font-family: var(–mono); font-size: 11px; color: var(–txt3); }
+
+/* COMPLETADO */
+.completion-screen { display: none; text-align: center; padding: 60px 0; animation: lesson-in .4s ease both; }
+.completion-screen.completion-visible { display: block; }
+.completion-badge { width: 80px; height: 80px; border-radius: 50%; background: var(–accent-lt); border: 2px solid rgba(240,165,0,.3); display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 24px; box-shadow: 0 0 40px var(–accent-glow); animation: badge-pop .6s cubic-bezier(.34,1.56,.64,1) both; animation-delay: .1s; }
+@keyframes badge-pop { from{transform:scale(0) rotate(-15deg);opacity:0;} to{transform:scale(1) rotate(0);opacity:1;} }
+.completion-title { font-size: 2rem; font-weight: 800; letter-spacing: -.5px; color: var(–txt); margin-bottom: 12px; }
+.completion-sub { font-size: 16px; color: var(–txt2); line-height: 1.7; max-width: 420px; margin: 0 auto 36px; }
+.completion-stats { display: flex; justify-content: center; gap: 32px; margin-bottom: 40px; flex-wrap: wrap; }
+.completion-stat { text-align: center; }
+.completion-stat-num { font-size: 2rem; font-weight: 800; color: var(–accent); letter-spacing: -1px; line-height: 1; margin-bottom: 4px; }
+.completion-stat-lbl { font-family: var(–mono); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(–txt3); }
+.completion-upgrade-box { background: var(–s1); border: 1px solid var(–brd2); border-radius: var(–r-xl); padding: 32px 28px; max-width: 480px; margin: 0 auto; position: relative; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.3); }
+.completion-upgrade-box::before { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(–accent), #f43f5e); }
+.upgrade-label { font-family: var(–mono); font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #f43f5e; margin-bottom: 10px; }
+.upgrade-title { font-size: 1.3rem; font-weight: 800; color: var(–txt); letter-spacing: -.3px; margin-bottom: 10px; }
+.upgrade-desc { font-size: 13px; color: var(–txt2); line-height: 1.7; margin-bottom: 20px; }
+.upgrade-features { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 22px; text-align: left; }
+.upgrade-feature-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(–txt2); }
+.upgrade-feature-check { color: #f43f5e; font-size: 12px; flex-shrink: 0; }
+.btn-upgrade { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: #f43f5e; color: #fff; font-family: var(–sans); font-size: 15px; font-weight: 800; border: none; border-radius: var(–r-lg); cursor: pointer; box-shadow: 0 4px 0 #b91c35, 0 6px 20px rgba(244,63,94,.28); transition: filter .15s, transform .12s; width: 100%; justify-content: center; letter-spacing: -.1px; position: relative; overflow: hidden; }
+.btn-upgrade::after { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 45%; background: rgba(255,255,255,.12); border-radius: var(–r-lg) var(–r-lg) 60% 60%; }
+.btn-upgrade:hover  { filter: brightness(1.08); transform: translateY(-2px); }
+.btn-upgrade:active { transform: translateY(2px); }
+.btn-restart { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 10px 20px; border-radius: var(–r); border: 1px solid var(–brd); background: transparent; color: var(–txt3); font-family: var(–sans); font-size: 13px; font-weight: 600; cursor: pointer; transition: color .15s, border-color .15s; }
+.btn-restart:hover { color: var(–txt2); border-color: var(–brd2); }
+
+@media (max-width: 600px) {
+.page-wrap { padding: 0 14px 80px; }
+.hero-headline { letter-spacing: -1px; }
+.lesson-header { flex-wrap: wrap; gap: 14px; padding: 20px 18px; }
+.lesson-duration { display: none; }
+.compare-grid { grid-template-columns: 1fr; }
+.lesson-nav { flex-wrap: wrap; }
+.btn-lesson-nav, .btn-lesson-next { flex: 1; justify-content: center; }
+.progress-steps::before { display: none; }
+.step-label { font-size: 9px; max-width: 60px; }
+}
+</style>
+
+</head>
+<body>
+<div class="bg-atmosphere"></div>
+<div class="page-wrap">
+
+  <nav class="navbar">
+    <a href="#" class="navbar-brand">
+      <div class="navbar-logo">⚡</div>
+      <span class="navbar-name">Monetiza Online</span>
+    </a>
+    <div class="navbar-pill">
+      <span class="navbar-pill-dot"></span>
+      Nivel 2 · Pro
+    </div>
+  </nav>
+
+  <section class="hero-section">
+    <div class="hero-kicker">
+      <span class="hero-kicker-line"></span>
+      Sistema de ingresos
+    </div>
+    <h1 class="hero-headline">
+      Convierte tu esfuerzo<br>en un <span class="hero-headline-em">sistema</span>.
+    </h1>
+    <p class="hero-body">
+      Las primeras ventas confirman que hay mercado. El sistema es lo que convierte esas ventas sueltas en ingresos predecibles que no dependen de que tengas un buen día.
+    </p>
+    <div class="hero-meta-row">
+      <div class="hero-meta-item"><span class="hero-meta-icon">📚</span> 5 lecciones</div>
+      <div class="hero-meta-item"><span class="hero-meta-icon">⏱</span> ~75 min</div>
+      <div class="hero-meta-item"><span class="hero-meta-icon">⚡</span> Nivel 2 Pro</div>
+      <div class="hero-meta-item"><span class="hero-meta-icon">🔧</span> Ejercicios prácticos</div>
+    </div>
+    <div class="hero-cta-row">
+      <button class="btn-primary" onclick="startCourse()">Comenzar Nivel 2 →</button>
+    </div>
+  </section>
+
+  <div class="progress-track-section" id="progress-section" style="display:none">
+    <div class="section-label">Tu progreso</div>
+    <div class="progress-steps">
+      <div class="progress-step" onclick="goToLesson(0)">
+        <div class="step-circle step-active" id="step-0">1</div>
+        <div class="step-label step-label-active" id="step-label-0">Funnel mínimo</div>
+      </div>
+      <div class="progress-step" onclick="goToLesson(1)">
+        <div class="step-circle" id="step-1">2</div>
+        <div class="step-label" id="step-label-1">Contenido que vende</div>
+      </div>
+      <div class="progress-step" onclick="goToLesson(2)">
+        <div class="step-circle" id="step-2">3</div>
+        <div class="step-label" id="step-label-2">IA y automatización</div>
+      </div>
+      <div class="progress-step" onclick="goToLesson(3)">
+        <div class="step-circle" id="step-3">4</div>
+        <div class="step-label" id="step-label-3">Pricing correcto</div>
+      </div>
+      <div class="progress-step" onclick="goToLesson(4)">
+        <div class="step-circle" id="step-4">5</div>
+        <div class="step-label" id="step-label-4">Clientes recurrentes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LECCIÓN 1: Funnel mínimo viable -->
+
+  <div class="lesson-section" id="lesson-0">
+    <div class="lesson-header">
+      <div class="lesson-icon">🔄</div>
+      <div class="lesson-header-text">
+        <div class="lesson-num">Lección 01 de 05</div>
+        <h2 class="lesson-title">Tu funnel mínimo viable</h2>
+        <p class="lesson-subtitle">El sistema de 3 pasos que convierte extraños en clientes sin necesitar una agencia de marketing.</p>
+      </div>
+      <div class="lesson-duration">⏱ ~15 min</div>
+    </div>
+    <div class="lesson-body">
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">📖</span> Qué es un funnel y por qué lo necesitas ahora</div>
+        <p class="content-block-text">Un funnel es simplemente el camino que recorre alguien desde que no te conoce hasta que te paga. Sin funnel, dependes de que la gente correcta aparezca en el momento correcto — eso no escala. Con funnel, guías a las personas por ese camino de forma sistemática.<br><br><strong>El funnel mínimo viable tiene exactamente 3 pasos:</strong> atraer a las personas correctas, capturar su contacto para poder seguir la conversación, y convertir esa conversación en una venta.</p>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">🏗️</span> Los 3 elementos del funnel que funciona</div>
+        <ul class="check-list">
+          <li class="check-list-item"><span class="check-list-bullet">1</span><span class="check-list-text"><strong>El lead magnet:</strong> algo gratuito de alto valor que resuelve un problema específico de tu cliente ideal — a cambio de su email. Un PDF, una guía, una plantilla, un mini-curso. Tiene que ser algo que usarían aunque no compraran nada más.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">2</span><span class="check-list-text"><strong>La página de captura:</strong> una página simple (no necesitas web completa) que explica el lead magnet y tiene un formulario. Una herramienta como Carrd, ConvertKit o Mailchimp lo resuelve en menos de una hora.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">3</span><span class="check-list-text"><strong>La secuencia de emails:</strong> 3-5 emails automáticos que se envían después de que alguien se suscribe — entregan valor, construyen confianza y al final hacen la oferta. Esta secuencia trabaja mientras duermes.</span></li>
+        </ul>
+      </div>
+      <div class="insight-block">
+        <div class="insight-icon">💡</div>
+        <div class="insight-text"><strong>El funnel más simple que funciona:</strong> Una publicación en LinkedIn que lleva a una página de captura. La página ofrece una guía gratuita. Quien la descarga recibe 4 emails en 7 días. El email 4 hace la oferta. Este sistema puede generar ventas consistentes con 0€ de inversión publicitaria.</div>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">📧</span> La secuencia de 4 emails que convierte</div>
+        <ul class="check-list">
+          <li class="check-list-item"><span class="check-list-bullet">E1</span><span class="check-list-text"><strong>Email 1 — Bienvenida + entrega:</strong> entrega lo que prometiste, di quién eres en 3 líneas y cuál es el siguiente paso. Día 0.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">E2</span><span class="check-list-text"><strong>Email 2 — El error más común:</strong> un insight útil sobre el problema que resuelves. Sin vender. Solo valor. Día 2.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">E3</span><span class="check-list-text"><strong>Email 3 — Historia + resultado:</strong> una historia real (tuya o de un cliente) que muestra la transformación posible. Día 4.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">E4</span><span class="check-list-text"><strong>Email 4 — La oferta:</strong> explica qué ofreces, para quién es y cómo contratarlo. Sin presión, sin descuentos falsos. Día 7.</span></li>
+        </ul>
+      </div>
+      <div class="exercise-block">
+        <div class="exercise-header"><div class="exercise-badge">✏️ Ejercicio</div><div class="exercise-title">Diseña tu lead magnet en 30 minutos</div></div>
+        <p class="exercise-instruction">Un lead magnet efectivo resuelve UN problema específico para UNA persona específica. No tiene que ser largo — tiene que ser útil.</p>
+        <ol class="exercise-steps">
+          <li class="exercise-step"><span class="exercise-step-num">1</span><span class="exercise-step-text">Escribe: <strong>¿Cuál es el problema número 1 de tu cliente ideal antes de comprarte?</strong></span></li>
+          <li class="exercise-step"><span class="exercise-step-num">2</span><span class="exercise-step-text">Define el formato: <strong>guía PDF, plantilla, checklist, mini-video, calculadora</strong>. Elige el que puedes crear en menos de 3 horas.</span></li>
+          <li class="exercise-step"><span class="exercise-step-num">3</span><span class="exercise-step-text">Escribe el título con esta fórmula: <strong>"Cómo [resultado deseado] en [tiempo específico] sin [objeción principal]"</strong></span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="lesson-nav">
+      <button class="btn-lesson-nav" disabled>← Anterior</button>
+      <span class="lesson-progress-text">1 / 5</span>
+      <button class="btn-lesson-next" onclick="goToLesson(1)">Siguiente lección →</button>
+    </div>
+  </div>
+
+  <!-- LECCIÓN 2: Contenido que vende -->
+
+  <div class="lesson-section" id="lesson-1">
+    <div class="lesson-header">
+      <div class="lesson-icon">✍️</div>
+      <div class="lesson-header-text">
+        <div class="lesson-num">Lección 02 de 05</div>
+        <h2 class="lesson-title">Contenido que vende solo</h2>
+        <p class="lesson-subtitle">La estrategia 80/20 para crear contenido que atrae clientes sin publicar todos los días.</p>
+      </div>
+      <div class="lesson-duration">⏱ ~15 min</div>
+    </div>
+    <div class="lesson-body">
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">📐</span> La regla 80/20 del contenido</div>
+        <p class="content-block-text">El 80% de tus resultados van a venir del 20% de tu contenido. La mayoría de creadores publican todos los días sin estrategia y se agotan sin resultados. La minoría publica menos pero con más intención — y ese contenido trabaja para ellos durante meses.<br><br><strong>La distinción clave:</strong> contenido de atracción (lleva tráfico nuevo) vs. contenido de conversión (convierte tráfico existente en clientes). Necesitas los dos, pero en proporciones diferentes según tu momento.</p>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">🎯</span> Los 5 formatos con mayor retorno orgánico</div>
+        <ul class="check-list">
+          <li class="check-list-item"><span class="check-list-bullet">1</span><span class="check-list-text"><strong>El post de posicionamiento:</strong> una opinión directa y específica sobre tu área. "Por qué el método X está equivocado" o "La verdad sobre Y que nadie te dice". Alto engagement, construye autoridad.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">2</span><span class="check-list-text"><strong>El carrusel de valor:</strong> 5-8 slides con un framework, proceso o insight accionable. El formato con mayor tasa de guardado en LinkedIn — la gente lo guarda para volver.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">3</span><span class="check-list-text"><strong>La historia de transformación:</strong> antes/después real, tuyo o de un cliente. Es el formato que más genera conversaciones privadas de potenciales clientes.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">4</span><span class="check-list-text"><strong>La lista de recursos:</strong> "Las 7 herramientas que uso para X". Fácil de crear, alto alcance por compartidos, genera confianza por transparencia.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">5</span><span class="check-list-text"><strong>El FAQ en video corto:</strong> responde la pregunta más frecuente de tus clientes en menos de 90 segundos. Funciona en LinkedIn, Instagram y YouTube Shorts simultáneamente.</span></li>
+        </ul>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">📅</span> El sistema de contenido mínimo viable</div>
+        <p class="content-block-text">En lugar de publicar todos los días sin estrategia, este sistema produce resultados con menos esfuerzo:</p>
+        <div class="compare-grid">
+          <div class="compare-col compare-col-bad">
+            <div class="compare-col-title">❌ Modo agotamiento</div>
+            <div class="compare-item">Publicar a diario sin plan</div>
+            <div class="compare-item">Copiar lo que hace la competencia</div>
+            <div class="compare-item">Métricas de vanidad (likes)</div>
+            <div class="compare-item">Burnout en 3 semanas</div>
+          </div>
+          <div class="compare-col compare-col-good">
+            <div class="compare-col-title">✓ Modo sistema</div>
+            <div class="compare-item">3 posts/semana con intención</div>
+            <div class="compare-item">1 pieza larga → 5 derivadas</div>
+            <div class="compare-item">Métricas reales (leads, DMs)</div>
+            <div class="compare-item">Sostenible por años</div>
+          </div>
+        </div>
+      </div>
+      <div class="exercise-block">
+        <div class="exercise-header"><div class="exercise-badge">✏️ Ejercicio</div><div class="exercise-title">Crea tu primer mes de contenido en 90 minutos</div></div>
+        <p class="exercise-instruction">Este sistema de batching (producción en lote) es la diferencia entre quien publica consistentemente y quien no.</p>
+        <ol class="exercise-steps">
+          <li class="exercise-step"><span class="exercise-step-num">1</span><span class="exercise-step-text">Escribe <strong>12 preguntas frecuentes</strong> de tu cliente ideal. Cada pregunta = un post futuro.</span></li>
+          <li class="exercise-step"><span class="exercise-step-num">2</span><span class="exercise-step-text">Agrupa por semana: <strong>semana 1 = problema, semana 2 = solución, semana 3 = método, semana 4 = prueba social</strong>.</span></li>
+          <li class="exercise-step"><span class="exercise-step-num">3</span><span class="exercise-step-text">Dedica 2 horas el domingo a crear los 3 posts de la semana siguiente. Programa con Buffer o LinkedIn nativo.</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="lesson-nav">
+      <button class="btn-lesson-nav" onclick="goToLesson(0)">← Anterior</button>
+      <span class="lesson-progress-text">2 / 5</span>
+      <button class="btn-lesson-next" onclick="goToLesson(2)">Siguiente lección →</button>
+    </div>
+  </div>
+
+  <!-- LECCIÓN 3: IA y automatización -->
+
+  <div class="lesson-section" id="lesson-2">
+    <div class="lesson-header">
+      <div class="lesson-icon">🤖</div>
+      <div class="lesson-header-text">
+        <div class="lesson-num">Lección 03 de 05</div>
+        <h2 class="lesson-title">IA y automatización básica</h2>
+        <p class="lesson-subtitle">Las herramientas que multiplican tu capacidad sin contratar — stack práctico para un solopreneur.</p>
+      </div>
+      <div class="lesson-duration">⏱ ~15 min</div>
+    </div>
+    <div class="lesson-body">
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">⚡</span> El principio de automatización inteligente</div>
+        <p class="content-block-text">No automatices primero — <strong>optimiza primero, luego automatiza</strong>. Automatizar un proceso roto solo crea errores más rápido. El orden correcto: hace la tarea manualmente hasta entenderla bien → la documenta → la simplifica → la automatiza. Solo en ese orden funciona.</p>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">🛠️</span> Stack de herramientas para solopreneurs (organizado por función)</div>
+        <ul class="check-list">
+          <li class="check-list-item"><span class="check-list-bullet">📝</span><span class="check-list-text"><strong>Creación de contenido (IA):</strong> Claude o ChatGPT para borradores, refinamiento de copy y respuestas a objeciones. No para copiar-pegar — para acelerar el punto de partida.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">📧</span><span class="check-list-text"><strong>Email marketing:</strong> ConvertKit o MailerLite (gratuitos hasta 1000 suscriptores). Automatizan la secuencia de bienvenida y las campañas sin intervención manual.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">🔗</span><span class="check-list-text"><strong>Automatización entre apps:</strong> Make.com (anteriormente Integromat) para conectar formularios, CRM, email y notificaciones. 1000 operaciones/mes gratis — suficiente para empezar.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">📅</span><span class="check-list-text"><strong>Agenda y reuniones:</strong> Calendly o Cal.com eliminan el ping-pong de "¿cuándo puedes?". El cliente elige directamente en tu calendario disponible.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">💳</span><span class="check-list-text"><strong>Pagos y facturación:</strong> Stripe o Gumroad para pagos online. Factura simple automática, link de pago que puedes enviar por WhatsApp. Sin pasarela compleja.</span></li>
+        </ul>
+      </div>
+      <div class="insight-block">
+        <div class="insight-icon">⏱</div>
+        <div class="insight-text"><strong>Las 3 tareas que más tiempo consumen</strong> y que deberías automatizar primero: responder preguntas frecuentes (chatbot o plantillas), coordinar reuniones (Calendly), y enviar propuestas y seguimientos (CRM simple + plantillas). Estas tres solas pueden devolverte 8-10 horas semanales.</div>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">🤖</span> Cómo usar IA para acelerar sin perder autenticidad</div>
+        <p class="content-block-text">El mayor error con la IA es pedirle que escriba por ti desde cero. El resultado suena genérico porque <em>es</em> genérico. La forma correcta:</p>
+        <ul class="check-list">
+          <li class="check-list-item"><span class="check-list-bullet">✓</span><span class="check-list-text"><strong>Para contenido:</strong> escribe tus ideas en bullet points primero → pide a la IA que las expanda manteniendo tu tono → edita el resultado con tu voz.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">✓</span><span class="check-list-text"><strong>Para responder emails difíciles:</strong> describe la situación → pide 3 versiones de respuesta → elige la más cercana a tu estilo → ajusta.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">✓</span><span class="check-list-text"><strong>Para investigación de cliente:</strong> pide que simule ser tu cliente ideal y responda preguntas sobre sus frustraciones, miedos y deseos. Revelador para afinar el copy.</span></li>
+        </ul>
+      </div>
+      <div class="exercise-block">
+        <div class="exercise-header"><div class="exercise-badge">✏️ Ejercicio</div><div class="exercise-title">Automatización de bajo esfuerzo, alto impacto</div></div>
+        <p class="exercise-instruction">Esta semana implementa solo UNA automatización. Una bien hecha vale más que diez a medias:</p>
+        <ol class="exercise-steps">
+          <li class="exercise-step"><span class="exercise-step-num">1</span><span class="exercise-step-text">Crea una cuenta en <strong>ConvertKit o MailerLite</strong> (gratis). Configura el formulario de captura para tu lead magnet.</span></li>
+          <li class="exercise-step"><span class="exercise-step-num">2</span><span class="exercise-step-text">Escribe los 4 emails de la secuencia de bienvenida (Lección 1) y configura el envío automático con los días de delay.</span></li>
+          <li class="exercise-step"><span class="exercise-step-num">3</span><span class="exercise-step-text">Prueba el flujo completo suscribiéndote tú mismo. Verifica que llegan los emails, que los links funcionan y que el tono es correcto.</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="lesson-nav">
+      <button class="btn-lesson-nav" onclick="goToLesson(1)">← Anterior</button>
+      <span class="lesson-progress-text">3 / 5</span>
+      <button class="btn-lesson-next" onclick="goToLesson(3)">Siguiente lección →</button>
+    </div>
+  </div>
+
+  <!-- LECCIÓN 4: Pricing correcto -->
+
+  <div class="lesson-section" id="lesson-3">
+    <div class="lesson-header">
+      <div class="lesson-icon">💰</div>
+      <div class="lesson-header-text">
+        <div class="lesson-num">Lección 04 de 05</div>
+        <h2 class="lesson-title">Cobra lo que realmente vales</h2>
+        <p class="lesson-subtitle">La psicología del precio y cómo estructurar tu oferta para vender más cobrando más.</p>
+      </div>
+      <div class="lesson-duration">⏱ ~15 min</div>
+    </div>
+    <div class="lesson-body">
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">🧠</span> Por qué cobrar poco te perjudica</div>
+        <p class="content-block-text">El precio bajo no solo te da menos dinero — <strong>atrae peores clientes</strong>. Los clientes que eligen por precio son los que más piden, menos valoran y más se quejan. El cliente que paga bien generalmente es más profesional, respeta más tu tiempo y te da mejores resultados para mostrar.<br><br>Además, un precio muy bajo genera desconfianza. Si algo cuesta $10 y la competencia cobra $200, el cliente piensa que hay algo malo con lo tuyo — aunque sea mejor.</p>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">📊</span> Cómo calcular tu precio mínimo y tu precio objetivo</div>
+        <ul class="check-list">
+          <li class="check-list-item"><span class="check-list-bullet">1</span><span class="check-list-text"><strong>Precio basado en tiempo:</strong> calcula cuántas horas requiere el proyecto × tarifa hora deseada. Este es tu precio mínimo — nunca bajes de aquí.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">2</span><span class="check-list-text"><strong>Precio basado en valor:</strong> ¿cuánto vale el resultado para el cliente? Si tu servicio le genera $10.000 extra al mes, cobrar $2.000 es barato para él aunque parezca caro para ti.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">3</span><span class="check-list-text"><strong>Precio de mercado:</strong> ¿qué cobran los 5 mejores en tu nicho? Posicionarte en el rango medio-alto es la estrategia más sostenible para empezar.</span></li>
+        </ul>
+      </div>
+      <div class="insight-block">
+        <div class="insight-icon">🎯</div>
+        <div class="insight-text"><strong>La prueba del precio correcto:</strong> si el 90% de tus propuestas se aceptan sin negociación, estás cobrando demasiado poco. El precio correcto tiene una tasa de cierre del 50-70% — hay rechazo, y eso es sano. Significa que estás en el rango donde el cliente evalúa seriamente.</div>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">📦</span> Cómo empaquetar tu servicio para vender más</div>
+        <p class="content-block-text">En lugar de vender "horas de consultoría", vende un paquete con nombre, entregables claros y resultado prometido. Las personas compran resultados, no procesos.</p>
+        <div class="code-block">
+          <div class="code-block-bar">
+            <span class="code-block-label">Plantilla de oferta</span>
+            <span class="code-block-tag">Copiar y adaptar</span>
+          </div>
+          <div class="code-block-body">
+<span class="code-highlight">Nombre:</span> "Sistema [Resultado] en [Tiempo]"<br><br>
+<span class="code-highlight">Para quién es:</span> [perfil específico del cliente ideal]<br><br>
+<span class="code-highlight">Qué incluye:</span><br>
+  → [Entregable 1 concreto]<br>
+  → [Entregable 2 concreto]<br>
+  → [Soporte / acceso]<br><br>
+<span class="code-highlight">Resultado prometido:</span> [Qué tendrá / logrará al final]<br><br>
+<span class="code-highlight">Precio:</span> $[X] · Pago único / [X] mensuales<br><br>
+<span class="code-highlight">Garantía:</span> [Si aplica — reduce el riesgo percibido]
+          </div>
+        </div>
+      </div>
+      <div class="exercise-block">
+        <div class="exercise-header"><div class="exercise-badge">✏️ Ejercicio</div><div class="exercise-title">Construye tu oferta empaquetada</div></div>
+        <p class="exercise-instruction">Usa la plantilla de arriba para crear la descripción de tu oferta. El objetivo es que un desconocido entienda en 30 segundos qué obtiene y para quién es.</p>
+        <ol class="exercise-steps">
+          <li class="exercise-step"><span class="exercise-step-num">1</span><span class="exercise-step-text">Completa la plantilla en un documento. <strong>No te saltes el "para quién es"</strong> — es lo que hace que el cliente correcto se reconozca.</span></li>
+          <li class="exercise-step"><span class="exercise-step-num">2</span><span class="exercise-step-text">Define 2 versiones del precio: <strong>precio básico</strong> (entregables mínimos) y <strong>precio premium</strong> (añade soporte, más sesiones o resultado más rápido).</span></li>
+          <li class="exercise-step"><span class="exercise-step-num">3</span><span class="exercise-step-text">Comparte la descripción con alguien de tu cliente ideal (no un amigo, un cliente real potencial) y pregunta: "¿Quedó claro qué incluye? ¿Te parece justo el precio?"</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="lesson-nav">
+      <button class="btn-lesson-nav" onclick="goToLesson(2)">← Anterior</button>
+      <span class="lesson-progress-text">4 / 5</span>
+      <button class="btn-lesson-next" onclick="goToLesson(4)">Última lección →</button>
+    </div>
+  </div>
+
+  <!-- LECCIÓN 5: Clientes recurrentes -->
+
+  <div class="lesson-section" id="lesson-4">
+    <div class="lesson-header">
+      <div class="lesson-icon">🔁</div>
+      <div class="lesson-header-text">
+        <div class="lesson-num">Lección 05 de 05</div>
+        <h2 class="lesson-title">Convierte clientes en recurrentes</h2>
+        <p class="lesson-subtitle">El cliente más fácil de vender es al que ya compró. Cómo construir ingresos predecibles con retención.</p>
+      </div>
+      <div class="lesson-duration">⏱ ~15 min</div>
+    </div>
+    <div class="lesson-body">
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">📈</span> Por qué la retención vale más que la adquisición</div>
+        <p class="content-block-text">Conseguir un cliente nuevo cuesta entre 5 y 7 veces más que retener uno existente. Y sin embargo, la mayoría de negocios online invierten el 90% de su energía en conseguir nuevos clientes y el 10% en retener los que ya tienen.<br><br><strong>La matemática es simple:</strong> si tienes 10 clientes recurrentes a $500/mes, tienes $5.000/mes de base fija — sin necesitar vender nada ese mes. Ese es el negocio que te da libertad real.</p>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">🤝</span> 4 estrategias para generar recurrencia</div>
+        <ul class="check-list">
+          <li class="check-list-item"><span class="check-list-bullet">1</span><span class="check-list-text"><strong>Retainer mensual:</strong> en lugar de proyectos únicos, ofrece un servicio de mantenimiento, optimización continua o acompañamiento mensual. "Te ayudo a ejecutar la estrategia mes a mes" vs "Te doy la estrategia una sola vez".</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">2</span><span class="check-list-text"><strong>Membresía o comunidad:</strong> acceso a contenido exclusivo, sesiones grupales o una comunidad privada. Funciona especialmente bien cuando tienes audiencia, aunque sea pequeña.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">3</span><span class="check-list-text"><strong>Seguimiento post-servicio:</strong> 30 días después de terminar un proyecto, haz check-in. "¿Cómo va todo? ¿Hay algo donde te pueda ayudar más?" — la mayoría de ventas de continuidad vienen de esa llamada.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">4</span><span class="check-list-text"><strong>Programa de mantenimiento:</strong> si tu servicio tiene componente técnico (web, email, automatizaciones), ofrece mantenimiento mensual post-proyecto. El cliente no quiere que se rompa lo que construiste juntos.</span></li>
+        </ul>
+      </div>
+      <div class="warning-block">
+        <div class="warning-icon">💡</div>
+        <div class="warning-text"><strong>La pregunta más poderosa en cada cierre:</strong> "¿Qué necesitarías después de este proyecto para seguir avanzando?" Esta pregunta planta la semilla de la continuidad antes de que el proyecto empiece. El cliente ya está pensando en lo siguiente, y tú estás posicionado como la respuesta natural.</div>
+      </div>
+      <div class="content-block">
+        <div class="content-block-title"><span class="content-block-title-icon">🗓️</span> Construye ingresos base de $3k/mes en 90 días</div>
+        <ul class="check-list">
+          <li class="check-list-item"><span class="check-list-bullet">M1</span><span class="check-list-text"><strong>Mes 1:</strong> consigue 3 clientes nuevos con tu oferta principal. Entrega resultados extraordinarios — esto es inversión en retención futura.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">M2</span><span class="check-list-text"><strong>Mes 2:</strong> a los 3 clientes del mes 1, ofrece continuidad. Al menos 1 de 3 dirá sí. Consigue 3 clientes nuevos más. Total posible: 1 recurrente + 3 nuevos.</span></li>
+          <li class="check-list-item"><span class="check-list-bullet">M3</span><span class="check-list-text"><strong>Mes 3:</strong> con 2-3 recurrentes y flujo constante de nuevos, el negocio tiene base estable. Ahora puedes subir precios o especializar — desde una posición de seguridad.</span></li>
+        </ul>
+      </div>
+      <div class="exercise-block">
+        <div class="exercise-header"><div class="exercise-badge">✏️ Ejercicio</div><div class="exercise-title">Diseña tu oferta de continuidad</div></div>
+        <p class="exercise-instruction">Este ejercicio es sobre pensar el negocio a largo plazo. Para cada cliente que tienes o que planeas conseguir, define qué viene después.</p>
+        <ol class="exercise-steps">
+          <li class="exercise-step"><span class="exercise-step-num">1</span><span class="exercise-step-text">Escribe: después de completar tu servicio principal, <strong>¿qué problema tiene tu cliente que aún no está resuelto?</strong></span></li>
+          <li class="exercise-step"><span class="exercise-step-num">2</span><span class="exercise-step-text">Diseña una oferta de seguimiento simple: <strong>nombre, qué incluye al mes, precio mensual</strong>. Que sea fácil de decir sí.</span></li>
+          <li class="exercise-step"><span class="exercise-step-num">3</span><span class="exercise-step-text">Si ya tienes clientes pasados: contáctales esta semana. El check-in simple puede reactivar relaciones que ya tienen valor construido.</span></li>
+        </ol>
+      </div>
+    </div>
+    <div class="lesson-nav">
+      <button class="btn-lesson-nav" onclick="goToLesson(3)">← Anterior</button>
+      <span class="lesson-progress-text">5 / 5</span>
+      <button class="btn-lesson-next" onclick="completeCourse()">🎉 Completar Nivel 2</button>
+    </div>
+  </div>
+
+  <!-- COMPLETADO -->
+
+  <div class="completion-screen" id="completion-screen">
+    <div class="completion-badge">⚡</div>
+    <h2 class="completion-title">¡Nivel 2 completado!</h2>
+    <p class="completion-sub">Tienes el funnel, el contenido, la automatización, el precio correcto y la estrategia de retención. El Nivel 3 Elite te enseña a escalar todo esto a 5-10k/mes.</p>
+    <div class="completion-stats">
+      <div class="completion-stat"><div class="completion-stat-num">5</div><div class="completion-stat-lbl">Lecciones</div></div>
+      <div class="completion-stat"><div class="completion-stat-num">~75</div><div class="completion-stat-lbl">Minutos</div></div>
+      <div class="completion-stat"><div class="completion-stat-num">5</div><div class="completion-stat-lbl">Ejercicios</div></div>
+    </div>
+    <div class="completion-upgrade-box">
+      <div class="upgrade-label">🔥 Siguiente nivel</div>
+      <h3 class="upgrade-title">Nivel 3 Elite — Escala a 5-10k/mes</h3>
+      <p class="upgrade-desc">Ahora que tienes el sistema, el Nivel 3 te enseña a escalar: publicidad de pago, productos digitales escalables, afiliados y cómo salir de las operaciones.</p>
+      <ul class="upgrade-features">
+        <li class="upgrade-feature-item"><span class="upgrade-feature-check">▸</span> Tráfico de pago que convierte desde el día 1</li>
+        <li class="upgrade-feature-item"><span class="upgrade-feature-check">▸</span> Crear y vender productos digitales escalables</li>
+        <li class="upgrade-feature-item"><span class="upgrade-feature-check">▸</span> Red de afiliados que vende por ti</li>
+        <li class="upgrade-feature-item"><span class="upgrade-feature-check">▸</span> Delegación y sistemas para salir del operativo</li>
+      </ul>
+      <button class="btn-upgrade" onclick="alert('Conecta tu enlace al Nivel 3 aquí')">🔥 Acceder al Nivel 3 →</button>
+    </div>
+    <button class="btn-restart" onclick="restartCourse()">↺ Repasar desde el inicio</button>
+  </div>
+
+</div>
+<script>
+var currentLesson = -1;
+var totalLessons  = 5;
+function startCourse() {
+  document.querySelector('.hero-section').style.display = 'none';
+  document.getElementById('progress-section').style.display = 'block';
+  goToLesson(0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function goToLesson(idx) {
+  for (var i = 0; i < totalLessons; i++) {
+    var el = document.getElementById('lesson-' + i);
+    if (el) el.classList.remove('lesson-active');
+  }
+  var comp = document.getElementById('completion-screen');
+  if (comp) comp.classList.remove('completion-visible');
+  var target = document.getElementById('lesson-' + idx);
+  if (target) {
+    target.classList.add('lesson-active');
+    currentLesson = idx;
+    updateProgress(idx);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+function updateProgress(activeIdx) {
+  for (var i = 0; i < totalLessons; i++) {
+    var circle = document.getElementById('step-' + i);
+    var label  = document.getElementById('step-label-' + i);
+    if (!circle || !label) continue;
+    circle.className = 'step-circle';
+    label.className  = 'step-label';
+    if (i < activeIdx) {
+      circle.className += ' step-done';
+      circle.textContent = '✓';
+      label.className  += ' step-label-done';
+    } else if (i === activeIdx) {
+      circle.className += ' step-active';
+      circle.textContent = i + 1;
+      label.className  += ' step-label-active';
+    } else {
+      circle.textContent = i + 1;
+    }
+  }
+}
+function completeCourse() {
+  for (var i = 0; i < totalLessons; i++) {
+    var el = document.getElementById('lesson-' + i);
+    if (el) el.classList.remove('lesson-active');
+    var circle = document.getElementById('step-' + i);
+    var label  = document.getElementById('step-label-' + i);
+    if (circle) { circle.className = 'step-circle step-done'; circle.textContent = '✓'; }
+    if (label)  { label.className  = 'step-label step-label-done'; }
+  }
+  var comp = document.getElementById('completion-screen');
+  if (comp) comp.classList.add('completion-visible');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function restartCourse() {
+  var comp = document.getElementById('completion-screen');
+  if (comp) comp.classList.remove('completion-visible');
+  goToLesson(0);
+}
+</script>
+</body>
+</html>
